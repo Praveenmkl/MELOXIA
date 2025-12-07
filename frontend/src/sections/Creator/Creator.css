@@ -1,0 +1,35 @@
+.creator-section {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0F1115;
+}
+
+.creator-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .creator-section {
+    min-height: 50vh;
+    padding: 30px 0;
+  }
+  
+  .creator-image {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .creator-section {
+    min-height: 40vh;
+    padding: 20px 0;
+  }
+}

@@ -1,0 +1,158 @@
+.footer-section {
+  width: 100%;
+  background-color:  #12151c;
+  background-image: url('../../assets/footer_img.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 60px 20px 30px;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  height: 100vh;
+}
+
+.footer-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(18, 21, 28, 0.9);
+  z-index: 1;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  margin-top: 120px;
+}
+
+.footer-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.footer-title {
+  color: white;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  letter-spacing: 0.02em;
+}
+
+.footer-description {
+  color: #9ca3af;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.footer-logo img {
+  height: 200px;
+  width: auto;
+  object-fit: contain;
+}
+
+.footer-divider {
+  width: 100%;
+  height: 1px;
+  background-color: #374151;
+  margin-bottom: 20px;
+}
+
+.footer-copyright {
+  text-align: center;
+}
+
+.footer-copyright p {
+  color: #9ca3af;
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-section {
+    height: auto;
+    min-height: 70vh;
+    padding: 50px 20px 30px;
+  }
+  
+  .footer-container {
+    margin-top: 60px;
+  }
+  
+  .footer-title {
+    font-size: 20px;
+  }
+  
+  .footer-description {
+    font-size: 14px;
+    padding: 0 10px;
+  }
+  
+  .footer-header {
+    margin-bottom: 30px;
+  }
+  
+  .footer-logo img {
+    height: 150px;
+  }
+  
+  .footer-logo {
+    margin-bottom: 30px;
+  }
+  
+  .footer-copyright p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-section {
+    min-height: 60vh;
+    padding: 40px 16px 20px;
+  }
+  
+  .footer-container {
+    margin-top: 40px;
+  }
+  
+  .footer-title {
+    font-size: 18px;
+  }
+  
+  .footer-description {
+    font-size: 13px;
+  }
+  
+  .footer-logo img {
+    height: 120px;
+  }
+  
+  .footer-copyright p {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 769px) {
+  .footer-title {
+    font-size: 28px;
+  }
+  
+  .footer-description {
+    font-size: 16px;
+  }
+}
