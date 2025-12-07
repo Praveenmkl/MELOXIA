@@ -62,3 +62,4 @@ export const authAPI = {
     return data;
   },
 };
+

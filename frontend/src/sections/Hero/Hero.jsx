@@ -1,5 +1,5 @@
 import React from 'react'
-import Hero from '../../assets/hero_enhance.png'
+import Hero from '../../assets/hero_enhance2.png'
 import './Hero.css'
 
 function HeroSection() {

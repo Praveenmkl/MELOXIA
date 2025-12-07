@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { MdPerson, MdPhone, MdEmail, MdDescription } from 'react-icons/md';
 import { FaServicestack } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 import './FormSection.css';
 
 export default function FormSection() {
@@ -12,6 +13,13 @@ export default function FormSection() {
     email: '',
     details: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState({ type: '', text: '' });
+
+  // Initialize EmailJS with public key
+  useEffect(() => {
+    emailjs.init('RmlIA36uowl-00_Oi');
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,10 +29,51 @@ export default function FormSection() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Add your submission logic here
+    setIsSubmitting(true);
+    setSubmitMessage({ type: '', text: '' });
+
+    // EmailJS configuration
+    const serviceID = 'service_fnjgq8v';
+    const templateID = 'template_e0xfj3h';
+
+    // Prepare template parameters
+    const templateParams = {
+      from_name: formData.fullName,
+      from_email: formData.email,
+      phone: formData.phone,
+      service: formData.service,
+      message: formData.details,
+      to_name: 'Meloxia Studio',
+    };
+
+    try {
+      const result = await emailjs.send(serviceID, templateID, templateParams);
+      console.log('Email sent successfully:', result);
+      
+      setSubmitMessage({ 
+        type: 'success', 
+        text: 'Your message has been sent successfully! We will get back to you soon.' 
+      });
+      
+      // Reset form after successful submission
+      setFormData({
+        fullName: '',
+        service: '',
+        phone: '',
+        email: '',
+        details: ''
+      });
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setSubmitMessage({ 
+        type: 'error', 
+        text: `Failed to send message: ${error.text || 'Please try again later.'}` 
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -120,10 +169,18 @@ export default function FormSection() {
             <button
               type="submit"
               className="form-submit-btn"
+              disabled={isSubmitting}
             >
-              Send Message
+              {isSubmitting ? 'Sending...' : 'Send Message'}
             </button>
           </div>
+
+          {/* Success/Error Message */}
+          {submitMessage.text && (
+            <div className={`submit-message ${submitMessage.type}`}>
+              {submitMessage.text}
+            </div>
+          )}
 
         </form>
       </div>
