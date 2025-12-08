@@ -11,10 +11,13 @@ const app = express();
 connectDB().catch(err => console.error('MongoDB connection error:', err));
 
 // Middleware
-app.use(helmet({
-  crossOriginResourcePolicy: { policy: "cross-origin" },
-  crossOriginOpenerPolicy: { policy: "same-origin-allow-popups" }
-}));
+// Disable helmet in production/serverless as it can cause issues
+if (process.env.NODE_ENV !== 'production') {
+  app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+    crossOriginOpenerPolicy: { policy: "same-origin-allow-popups" }
+  }));
+}
 
 // CORS configuration for production and development
 const allowedOrigins = [
