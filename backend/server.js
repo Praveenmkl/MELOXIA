@@ -7,8 +7,8 @@ const connectDB = require('./config/db');
 
 const app = express();
 
-// Connect to MongoDB
-connectDB();
+// Connect to MongoDB (don't await, let it connect in background)
+connectDB().catch(err => console.error('MongoDB connection error:', err));
 
 // Middleware
 app.use(helmet({
