@@ -14,10 +14,12 @@ const sendCookie = (user, res) => {
     { expiresIn: process.env.JWT_EXPIRES_IN }
   );
 
+  const isProduction = process.env.NODE_ENV === 'production';
+  
   res.cookie("token", token, {
     httpOnly: true,
-    sameSite: "Lax",
-    secure: false, // set true in production (https)
+    sameSite: isProduction ? "none" : "lax",
+    secure: isProduction,
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 };
