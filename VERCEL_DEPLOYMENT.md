@@ -64,9 +64,11 @@ This guide will walk you through deploying your full-stack Meloxia Studio applic
 3. **Configure Frontend Project**:
    - **Framework Preset**: Vite
    - **Root Directory**: Click "Edit" and select `frontend`
-   - **Build Command**: `npm run build` (should be auto-detected)
-   - **Output Directory**: `dist` (should be auto-detected)
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
    - **Install Command**: `npm install`
+   
+   **Important**: Make sure the build settings are exactly as shown above. If you get a "vite: command not found" error, the `vercel.json` file in the frontend directory will handle this automatically.
 
 4. **Add Environment Variables**:
    ```
