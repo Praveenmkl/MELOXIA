@@ -18,6 +18,10 @@ const allowedOrigins = [
   'http://localhost:5173', 
   'http://localhost:5174', 
   'http://localhost:3000',
+  'https://meloxia.me',
+  'https://www.meloxia.me',
+  'http://meloxia.me',
+  'http://www.meloxia.me',
   process.env.FRONTEND_URL
 ].filter(Boolean);
 
@@ -29,10 +33,13 @@ app.use(cors({
     if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'development') {
       callback(null, true);
     } else {
+      console.log('CORS blocked origin:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
