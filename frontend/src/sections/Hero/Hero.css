@@ -59,8 +59,8 @@
   
   .hero-content {
     bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 40px;
+    transform: none;
   }
   
   .btn-get-started {
@@ -76,6 +76,7 @@
   
   .hero-content {
     bottom: 30px;
+    left: 40px;
   }
   
   .btn-get-started {
