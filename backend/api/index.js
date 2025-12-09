@@ -24,8 +24,8 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-// Handle OPTIONS preflight requests
-app.options('*', (req, res) => {
+// Handle OPTIONS preflight requests - use regex instead of * for Express 5
+app.options(/.*/, (req, res) => {
   res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept');
