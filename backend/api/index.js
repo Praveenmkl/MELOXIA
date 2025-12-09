@@ -57,41 +57,65 @@ async function connectToDatabase() {
   return cachedDb;
 }
 
-// Initialize DB connection
-connectToDatabase().catch(console.error);
-
-// Import routes
-try {
-  const authRoutes = require('../routes/auth');
-  app.use('/auth', authRoutes);
-} catch (error) {
-  console.error('Error loading routes:', error.message);
-}
+// Initialize DB connection (don't block on it)
+connectToDatabase().catch(err => console.error('DB init error:', err));
 
 // Basic route
 app.get('/', (req, res) => {
-  res.json({ 
-    message: 'Meloxia Studio API Server is running',
-    timestamp: new Date().toISOString()
-  });
+  try {
+    res.json({ 
+      message: 'Meloxia Studio API Server is running',
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Root route error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 // Health check
 app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'ok',
-    mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
-  });
+  try {
+    res.json({ 
+      status: 'ok',
+      mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
+    });
+  } catch (error) {
+    console.error('Health check error:', error);
+    res.status(500).json({ error: 'Health check failed' });
+  }
 });
 
-// Error handler
+// Import routes with error handling
+try {
+  const authRoutes = require('../routes/auth');
+  app.use('/auth', authRoutes);
+  console.log('Auth routes loaded successfully');
+} catch (error) {
+  console.error('Error loading auth routes:', error.message);
+  // Create fallback auth routes
+  app.post('/auth/login', (req, res) => {
+    res.status(503).json({ message: 'Auth service temporarily unavailable', error: error.message });
+  });
+  app.post('/auth/register', (req, res) => {
+    res.status(503).json({ message: 'Auth service temporarily unavailable', error: error.message });
+  });
+}
+
+// Catch-all 404
+app.use((req, res) => {
+  res.status(404).json({ message: 'Route not found' });
+});
+
+// Global error handler - MUST be last
 app.use((err, req, res, next) => {
-  console.error('Error:', err.message);
+  console.error('Global error handler:', err.message, err.stack);
   res.status(500).json({ 
     success: false, 
     message: 'Internal server error',
-    error: err.message
+    error: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
   });
 });
 
+// Export the Express app
 module.exports = app;
