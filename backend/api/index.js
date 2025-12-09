@@ -92,13 +92,23 @@ try {
   app.use('/auth', authRoutes);
   console.log('Auth routes loaded successfully');
 } catch (error) {
-  console.error('Error loading auth routes:', error.message);
-  // Create fallback auth routes
+  console.error('Error loading auth routes:', error.message, error.stack);
+  // Create fallback auth routes with detailed error
   app.post('/auth/login', (req, res) => {
-    res.status(503).json({ message: 'Auth service temporarily unavailable', error: error.message });
+    res.status(503).json({ 
+      success: false,
+      message: 'Auth service temporarily unavailable', 
+      error: error.message,
+      hint: 'Check if JWT_SECRET and MONGODB_URI environment variables are set'
+    });
   });
   app.post('/auth/register', (req, res) => {
-    res.status(503).json({ message: 'Auth service temporarily unavailable', error: error.message });
+    res.status(503).json({ 
+      success: false,
+      message: 'Auth service temporarily unavailable', 
+      error: error.message,
+      hint: 'Check if JWT_SECRET and MONGODB_URI environment variables are set'
+    });
   });
 }
 
