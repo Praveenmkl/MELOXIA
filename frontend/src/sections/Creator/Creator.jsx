@@ -1,5 +1,5 @@
 import React from 'react'
-import creator from '../../assets/praveen_enhance.png'
+import creator from '../../assets/praveen_enhance.webp'
 import './Creator.css'
 
 function Creator() {

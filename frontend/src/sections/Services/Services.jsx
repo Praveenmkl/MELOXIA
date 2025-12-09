@@ -1,9 +1,9 @@
 import React from 'react';
 import ServiceCard from '../../components/ServiceCard/ServiceCard';
-import UIUX from '../../assets/3.png';
-import manipulation from '../../assets/4.png';
-import social_media from '../../assets/2.png';
-import brand_identity from '../../assets/1.png';
+import UIUX from '../../assets/3.webp';
+import manipulation from '../../assets/4.webp';
+import social_media from '../../assets/2.webp';
+import brand_identity from '../../assets/1.webp';
 import './Services.css';
 
 const Services = () => {
